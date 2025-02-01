@@ -1,0 +1,51 @@
+/* tailwind css import */
+@import "tailwindcss";
+
+/* font setup */
+body *{
+   font-family: "yekanbakh";
+}
+@font-face {
+    font-family: "yekanbakh";
+    src: url(../font/fonts/YekanBakh/YekanBakh-Bold.ttf);
+}
+/* styling */
+
+.g-system{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr);
+    row-gap: 20px;
+    column-gap: 20px;
+}
+
+.parent1{
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+}
+.chart {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.editable-cell {
+    transition: background-color 0.2s ease;
+}
+.editable-cell:focus {
+    background-color: #f3f4f6;
+    outline: none;
+}
+
+
+.week{
+    width: 600px;
+    height: 500px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}

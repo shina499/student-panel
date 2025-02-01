@@ -1,0 +1,106 @@
+.mood-bar {
+    transition: width 0.5s ease-in-out;
+}
+#main-panel {
+    width: 600px;
+    height: 400px;
+}
+.bg{
+    background-image: url(../image/seamless-pattern-with-sports-icons-doodle-with-sport-icons-on-white-background-vintage-sport-pat.png);
+    background-color: #01ff0586;
+    background-blend-mode: color;
+}
+.animation1:hover{
+    animation: 
+      shakeY 1.5s, 
+      cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s infinite;
+      background-color: oklch(0.885 0.062 18.334);
+}
+@keyframes shakeY {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    10% {
+      transform: translateY(-12px);
+    }
+    20% {
+      transform: translateY(12px);
+    }
+    30% {
+      transform: translateY(-9px);
+    }
+    40% {
+      transform: translateY(9px);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+    60% {
+      transform: translateY(6px);
+    }
+    70% {
+      transform: translateY(-3px);
+    }
+    80% {
+      transform: translateY(3px);
+    }
+    90% {
+      transform: translateY(-1px);
+    }
+}
+
+.animation2:hover{
+    animation: 
+      swing 2s 
+      cubic-bezier(0.4, 0, 0.2, 1) 
+      0.3s
+      3; 
+    transform-origin: top center;
+    background-color: oklch(0.882 0.059 254.128);
+}
+@keyframes swing {
+    0% {
+      transform: rotate(0deg);
+    }
+    20% {
+      transform: rotate(20deg);
+    }
+    40% {
+      transform: rotate(-20deg);
+    }
+    60% {
+      transform: rotate(15deg);
+    }
+    80% {
+      transform: rotate(-15deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+}
+  
+.animation3:hover{
+    animation: 
+      tada 1.5s
+      cubic-bezier(0.4, 0, 0.2, 1)
+      0.5s 
+      2; 
+      background-color: oklch(0.925 0.084 155.995);
+}
+@keyframes tada {
+    0% {
+      transform: scale(1);
+    }
+    10%, 20% {
+      transform: scale(0.9) rotate(-5deg);
+    }
+    30%, 50%, 70%, 90% {
+      transform: scale(1.2) rotate(5deg);
+    }
+    40%, 60%, 80% {
+      transform: scale(1.2) rotate(-5deg);
+    }
+    100% {
+      transform: scale(1) rotate(0deg);
+    }
+}

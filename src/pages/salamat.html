@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/salamat.css">
+    <link rel="stylesheet" href="../output.css">
+    <link rel="shortcut icon" href="../favicon/favicon.png" type="image/x-icon">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <title>پنل سلامت | ایستگاه دانش</title>
+</head>
+<body>
+    <header class="w-full h-[80px] bg-gray-100 ">
+        <div class="flex justify-between items-center h-[80px] gap-[20px] p-5">
+
+            <div>
+                <p class="text-lg font-bold">خوش آمدید</p>
+            </div>
+            
+            <div class="flex gap-[10px] justify-center items-center">
+                <!-- website icon -->
+                <img class="w-[60px] h-[60px] rounded" src="../favicon/favicon.png" alt="website-icon">
+                <!-- website title -->
+                <h1 class="text-2xl font-black">پنل سلامت ایستگاه دانش</h1>
+            </div>
+
+            <div>
+                <p class="text-lg font-bold">به نام خداوند جان و خرد</p>
+            </div>
+            
+        </div>
+    </header>
+
+    <main class="p-15 flex gap-[20px]">
+        <section class="g-system">
+
+                <div class="w-[600px] h-[400px] bg-blue-200 rounded-2xl shadow-xl p-8 flex flex-col items-center animate__animated animate__fadeIn" style="width: 600px; height: 400px;">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-4xl">💧</span>
+                        <h1 class="text-2xl font-bold text-blue-600">آب مصرفی امروز</h1>
+                    </div>
+            
+                    <div class="flex items-center gap-6 mb-8">
+                        <button id="decrementBtn" class="p-3 rounded-xl bg-red-100 hover:bg-red-200 text-red-500 text-2xl transition-all">
+                            🥤-
+                        </button>
+                        
+                        <div class="text-6xl font-bold text-blue-500">
+                            <span id="count">0</span>
+                            <span class="text-2xl text-blue-300">/8</span>
+                        </div>
+                        
+                        <button id="incrementBtn" class="p-3 rounded-xl bg-blue-300 hover:bg-blue-400 text-blue-500 text-2xl transition-all">
+                            🥤+
+                        </button>
+                    </div>
+            
+                    <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+                        <div id="progress" class="bg-gradient-to-r from-blue-300 to-blue-600 h-4 rounded-full transition-all duration-500"></div>
+                    </div>
+            
+                    <div class="flex items-center justify-between w-full mt-auto">
+                        <div id="status" class="text-lg text-blue-400">😴 هنوز شروع نکردی!</div>
+                        <button id="resetBtn" class="text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-2">
+                            🔄 بازنشانی
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-[600px] h-[400px] bg-white rounded-2xl shadow-xl p-6 flex flex-col bg animate__animated animate__fadeIn">
+                    <!-- هدر -->
+                    <div class="flex items-center gap-3 mb-4">
+                        <h1 class="text-2xl font-bold text-green-600 bg-white p-2"> 🏃🏻‍♀️‍➡️ مدیریت ورزش روزانه </h1>
+                    </div>
+            
+                    <!-- بخش تایمر -->
+                    <div class="flex-1 flex flex-col items-center justify-center">
+                        <div id="timerDisplay" class="text-6xl font-mono text-green-600 mb-4 bg-white p-2">۰۰:۰۰:۰۰</div>
+                        
+                        <div class="flex gap-3">
+                            <button id="controlButton" class="px-5 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
+                                ▶ شروع
+                            </button>
+                            <button id="saveButton" class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+                                💾 ذخیره
+                            </button>
+                        </div>
+                    </div>
+            
+                    <!-- تاریخچه تمرینات -->
+                    <div class="border-t pt-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-green-600 font-bold bg-white p-2">📅 تاریخچه هفتگی</h3>
+                            <button id="clearHistoryButton" class="text-red-500 hover:text-red-700 text-sm bg-white p-2">
+                                پاکسازی تاریخچه
+                            </button>
+                        </div>
+                        <ul id="historyList" class="space-y-2 max-h-[100px] overflow-y-auto pr-2 text-black"></ul>
+                    </div>
+                </div>
+                
+                <div class="w-[600px] h-[400px] bg-pink-300 rounded-2xl shadow-xl p-6 flex flex-col bgn animate__animated animate__fadeIn" style="width: 600px; height: 400px;">
+        
+                    <!-- هدر -->
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-4xl">🌙</span>
+                        <h1 class="text-2xl font-bold text-purple-600 bg-white p-2">الگوی خواب دانش‌آموزی</h1>
+                    </div>
+            
+                    <!-- بخش ورود زمان -->
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-purple-50 p-4 rounded-xl">
+                            <label class="text-purple-500 mb-2 block">🛌 زمان خواب</label>
+                            <input type="time" id="bedtime" class="w-full p-2 rounded-lg border border-purple-200">
+                        </div>
+                        
+                        <div class="bg-purple-50 p-4 rounded-xl">
+                            <label class="text-purple-500 mb-2 block">🌅 زمان بیداری</label>
+                            <input type="time" id="waketime" class="w-full p-2 rounded-lg border border-purple-200">
+                        </div>
+                    </div>
+            
+                    <!-- نمایش نتیجه -->
+                    <div class="bg-purple-100 rounded-xl p-4 mb-4 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">⏳</span>
+                            <div>
+                                <p class="text-sm text-purple-500">مدت خواب</p>
+                                <p id="duration" class="text-xl font-bold text-purple-600">۰ ساعت ۰ دقیقه</p>
+                            </div>
+                        </div>
+                        <button id="calculateBtn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            محاسبه
+                        </button>
+                    </div>
+            
+                    <!-- تاریخچه خواب -->
+                    <div class="bg-purple-50 rounded-lg p-3 flex-1 overflow-y-auto">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-purple-600 font-bold">📅 تاریخچه خواب</h3>
+                            <button id="clearHistoryBtn" class="text-purple-400 hover:text-purple-600 text-sm">
+                                پاکسازی
+                            </button>
+                        </div>
+                        <ul id="history" class="space-y-2">
+                            <!-- آیتم های تاریخچه -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="main-panel" class="bg-yellow-200 rounded-2xl shadow-xl p-6 flex flex-col animate__animated animate__fadeIn" style="width: 600px; height: 400px;">
+                   <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-3xl">😊</span>
+                            <h1 class="text-xl font-bold text-purple-600">ردیاب احساسات روزانه</h1>
+                        </div>
+                        <span id="today-date" class="text-sm text-gray-500"></span>
+                    </div>
+            
+                   
+                    <div class="grid grid-cols-3 gap-2 mb-4">
+                        <button data-mood="happy" class="mood-btn bg-green-100 p-2 rounded-lg animation3">
+                            😊 شاد
+                        </button>
+                        <button data-mood="sad" class="mood-btn bg-blue-100 p-2 rounded-lg animation2">
+                            😢 ناراحت
+                        </button>
+                        <button data-mood="angry" class="mood-btn bg-red-100 p-2 rounded-lg animation1">
+                            😠 عصبانی
+                        </button>
+                    </div>
+            
+                   
+                    <div class="bg-gray-50 rounded-lg p-3 flex-1 mb-4">
+                        <div id="mood-chart" class="h-full space-y-1">
+                            
+                        </div>
+                    </div>
+            
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex gap-2">
+                            <div class="bg-purple-100 px-3 py-1 rounded-full text-sm">
+                                📊 مجموع: <span id="total-entries">0</span>
+                            </div>
+                            <div class="bg-green-100 px-3 py-1 rounded-full text-sm">
+                                🏆 بهترین روز: <span id="best-day">---</span>
+                            </div>
+                        </div>
+                        <button id="reset-btn" class="text-red-400 hover:text-red-600 text-sm">
+                            🔄 بازنشانی
+                        </button>
+                    </div>
+                </div>
+
+        </section>
+
+        <aside class="w-[25%] h-[120vh] shadow-lg p-4">
+
+            <h2 class="font-black text-2xl mb-6 text-center">پنل دسترسی سریع </h2>
+
+            <section class="flex flex-col justify-center items-center gap-[10px] bg-white ">
+
+                <div class="w-[95%] h-[200px] bg-sky-50 flex flex-col justify-center items-center gap-[30px] shadow-sky-300 shadow-lg animate__animated animate__slideInDown">
+                    <h3 class="text-xl">پنل دانش آموزی👩🏻‍🎓📚</h3>
+                    <a href="./dashboard.html"><button class="px-3 py-2 bg-sky-500 text-white">بزن بریم !</button></a>
+                </div>
+                <div class="w-[95%] h-[200px] bg-red-100 flex flex-col justify-center items-center gap-[30px] shadow-red-300 shadow-lg animate__animated animate__slideInDown">
+                    <h3 class="text-xl">صفحه اصلی🖥️🖱️</h3>
+                    <button class="px-3 py-2 bg-red-500 text-white">پیش به سوی آن !</button>
+                </div>
+                <div class="w-[95%] h-[200px] bg-lime-100 flex flex-col justify-center items-center gap-[30px] shadow-lime-300 shadow-lg animate__animated animate__slideInUp">
+                    <h3 class="text-xl">پنل امتحانات📔🖋️</h3>
+                    <button class="px-3 py-2 bg-lime-500 text-white">بریم ببینیم !</button>
+                </div>
+                <div class="w-[95%] h-[200px] bg-yellow-100 flex flex-col justify-center items-center gap-[30px] shadow-yellow-300 shadow-lg animate__animated animate__slideInUp">
+                    <h3 class="text-xl">دفترچه یادداشت🗂️📝</h3>
+                    <button class="px-3 py-2 bg-yellow-500 text-white">ورود به دفترچه یادداشت</button>
+                </div>
+
+        
+            </section>
+            
+        </aside>
+    </main>
+
+    <footer class="w-full h-[30vh] bg-gray-200 flex justify-between items-center p-15">
+
+        <div class="flex flex-col justify-center">
+            <h3 class="text-xl text-gray-800 font-black">با ما در ارتباط باشید</h3>
+            <ul class="flex flex-col justify-center">
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://web.shad.ir/">شاد</a></li>
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://web.rubika.ir/">روبیکا</a></li>
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://web.splus.ir/">سروش پلاس</a></li>
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://bale.ai/">بله</a></li>
+            </ul>
+        </div>
+
+        <div class="flex flex-col justify-center">
+            <h3 class="text-xl text-gray-800 font-black">در پروژه ما همکاری کنید</h3>
+            <ul class="flex flex-col justify-center">
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://github.com/shina499">گیت هاب</a></li>
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://www.instagram.com/">اینستاگرام</a></li>
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://www.linkedin.com/in/n-hosseiny-hosseiny-781256349/">لینکدین</a></li>
+            </ul>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <figure>
+                <a href="#">
+                    <img src="../favicon/favicon.png" class="w-[120px] h-[120px] rounded" alt="icon">
+                </a>
+            </figure>
+            
+            <span class="text-center text-gray-700 text-lg">ایستگاه دانش</span>
+        </div>
+
+        <p class="text-xl">ساخته شده با ❤️ در گروه برنامه سازان آینده</p>
+    </footer>
+    
+</body>
+<script src="../js/salamat.js" defer></script>
+</html>
