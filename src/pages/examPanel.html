@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../favicon/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/exam.css">
+    <link rel="stylesheet" href="../output.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+    <title>ایستگاه دانش | پنل امتحانات</title>
+</head>
+<body>
+    <header class="w-full h-[80px] bg-gray-100 ">
+        <div class="flex justify-between items-center h-[80px] gap-[20px] p-5">
+
+            <div class="flex flex-col gap-1">
+                <p class="text-lg font-bold">خوش آمدید</p>
+                <p class="text-sm font-light">امروز <span>یکشنبه ۱۲ اسفند</span></p>
+            </div>
+            
+            <div class="flex gap-[10px] justify-center items-center">
+                <!-- website icon -->
+                <img class="w-[60px] h-[60px] rounded" src="../favicon/favicon.png" alt="website-icon">
+                <!-- website title -->
+                <h1 class="text-2xl font-black">پنل دانش آموزی ایستگاه دانش</h1>
+            </div>
+
+            <div>
+                <p class="text-lg font-bold">به نام خداوند جان و خرد</p>
+            </div>
+            
+        </div>
+    </header>
+
+    <main class="p-5 flex gap-[20px] mb-6 mt-6">
+
+
+        <aside class="w-[25%] h-[132vh] shadow-lg p-4 rounded-lg">
+
+            <h2 class="font-black text-3xl mb-6 text-center">پنل دسترسی سریع </h2>
+
+            <section class="flex flex-col justify-center items-center gap-[35px] bg-white ">
+
+                <div class="w-[95%] h-[200px] bg-sky-100 flex flex-col justify-center items-center gap-[30px] rounded-lg shadow-sky-500 shadow-xl animate__animated animate__slideInRight">
+                    <h3 class="text-2xl">پنل سلامت🥼🩺</h3>
+                    <a href="./salamat.html"><button class="px-4 py-3 bg-sky-500 text-white hover:bg-sky-600 rounded">بزن بریم !</button></a>
+                </div>
+                <div class="w-[95%] h-[200px] bg-red-200 flex flex-col justify-center items-center gap-[30px] rounded-lg shadow-red-500 shadow-xl animate__animated animate__slideInLeft">
+                    <h3 class="text-2xl">صفحه اصلی🖥️🖱️</h3>
+                    <button class="px-4 py-3 bg-red-500 text-white hover:bg-red-600 rounded">پیش به سوی آن !</button>
+                </div>
+                <div class="w-[95%] h-[200px] bg-lime-200 flex flex-col justify-center items-center gap-[30px] rounded-lg shadow-lime-500 shadow-xl animate__animated animate__slideInRight">
+                    <h3 class="text-2xl">پنل امتحانات📔🖋️</h3>
+                    <button class="px-4 py-3 bg-lime-500 text-white hover:bg-lime-600 rounded"><a href="./examPanel.html">بریم ببینیم !</a></button>
+                </div>
+                <div class="w-[95%] h-[200px] bg-yellow-200 flex flex-col justify-center items-center gap-[30px] shadow-yellow-500 shadow-xl animate__animated animate__slideInLeft">
+                    <h3 class="text-2xl">دفترچه یادداشت🗂️📝</h3>
+                    <button class="px-4 py-3 bg-yellow-500 text-white hover:bg-yellow-600 rounded"><a href="./note.html">ورود به دفترچه یادداشت</a></button>
+                </div>
+        
+            </section>
+            
+        </aside>
+
+        <div class="">
+
+            <section class="flex justify-center gap-6 items-center h-[550px]">
+                
+                <div class="bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center ">
+                    <div class="w-[500px] h-[500px] bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+                        <!-- هدر -->
+                        <div class="bg-gradient-to-r from-purple-600 to-blue-500 text-white p-6">
+                            <h1 class="text-2xl font-bold">📅 تقویم امتحانی</h1>
+                            <p id="todayDate" class="text-sm opacity-80 mt-1"></p>
+                        </div>
+                    
+                        <!-- محتوا -->
+                        <div class="flex-1 p-4 overflow-y-auto">
+                            <!-- کارت امتحانات امروز -->
+                            <div class="bg-purple-50 p-4 rounded-xl mb-4">
+                                <h2 class="text-lg font-bold text-purple-600 mb-2">امتحانات امروز</h2>
+                                <div id="todayExams" class="space-y-2">
+                                    <!-- امتحانات امروز -->
+                                </div>
+                            </div>
+                    
+                            <!-- لیست امتحانات آینده -->
+                            <div>
+                                <h2 class="text-lg font-bold text-blue-600 mb-2">امتحانات آینده</h2>
+                                <div id="upcomingExams" class="space-y-2">
+                                    <!-- امتحانات آینده -->
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- فرم افزودن -->
+                        <div class="border-t p-4 bg-gray-50">
+                            <div class="flex gap-2">
+                                <input type="text" id="examTitle" placeholder="📝 عنوان امتحان" 
+                                       class="flex-1 p-2 border-2 border-purple-100 rounded-xl focus:border-purple-400 transition-all">
+                                <input type="date" id="examDate" 
+                                       class="p-2 border-2 border-purple-100 rounded-xl focus:border-purple-400 transition-all">
+                                <button onclick="addExam()" 
+                                        class="bg-purple-600 text-white px-4 rounded-xl hover:bg-purple-700 transition-all shadow-md">
+                                    ➕
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-white p-6 rounded-lg shadow-lg w-[600px] h-[500px]">
+                    <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">پنل نمرات دانش‌آموزی</h1>
+                    
+                    <!-- فیلد نام دانش‌آموز -->
+                    <div class="mb-4">
+                      <label for="studentName" class="block text-gray-700">نام دانش‌آموز:</label>
+                      <input type="text" id="studentName" class="w-full p-2 border border-gray-300 rounded mt-1">
+                    </div>
+                
+                    <!-- فیلد تاریخ -->
+                    <div class="mb-4">
+                      <label for="date" class="block text-gray-700">تاریخ:</label>
+                      <input type="date" id="date" class="w-full p-2 border border-gray-300 rounded mt-1">
+                    </div>
+                
+                    <!-- فیلد نمرات -->
+                    <div class="mb-4">
+                      <label for="grades" class="block text-gray-700">نمرات (با کاما جدا کنید):</label>
+                      <input type="text" id="grades" class="w-full p-2 border border-gray-300 rounded mt-1" placeholder="مثال: ۱۸, ۱۹, ۲۰">
+                    </div>
+                
+                    <!-- دکمه ذخیره -->
+                    <button id="saveBtn" class="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">ذخیره نمرات</button>
+                
+                    <!-- نمایش نتیجه -->
+                    <div id="result" class="mt-6 text-center text-gray-700"></div>
+                  </div>
+            </section>
+    
+            <div class="w-[1000px] h-[600px] mx-auto my-10 bg-white rounded-3xl shadow-2xl overflow-hidden flex">
+                <!-- سایدبار -->
+                <div class="w-64 bg-gradient-to-b from-purple-600 to-blue-500 p-6 flex flex-col items-center">
+                    <div class="text-white text-center mb-8">
+                        <h2 class="text-2xl font-bold mb-2">🏆 امتیاز کل</h2>
+                        <div id="totalScore" class="text-4xl font-black">0</div>
+                    </div>
+                    <div class="bg-white/20 p-4 rounded-xl w-full">
+                        <h3 class="text-white font-bold mb-2">پیشرفت امروز</h3>
+                        <div class="bg-gray-200 h-2 rounded-full mb-2">
+                            <div id="dailyProgress" class="bg-yellow-400 h-2 rounded-full w-0"></div>
+                        </div>
+                        <p id="progressText" class="text-white text-sm">0/4 سوال</p>
+                    </div>
+                </div>
+        
+                <!-- محتوا -->
+                <div class="flex-1 p-8 overflow-y-auto">
+                    <h1 class="text-3xl font-bold text-purple-600 mb-6">
+                        چالش امروز 🗓️ 
+                        <span id="todayDate" class="text-2xl"></span>
+                    </h1>
+                    
+                    <!-- سوالات علوم -->
+                    <div class="mb-8 animate__animated animate__fadeInLeft">
+                        <div class="bg-red-100 rounded-xl p-6 mb-4">
+                            <h2 class="text-xl font-bold text-red-600 mb-4">🔬 علوم</h2>
+                            <div id="scienceQuestions" class="space-y-4"></div>
+                        </div>
+                    </div>
+        
+                    <!-- سوالات ریاضی -->
+                    <div class="animate__animated animate__fadeInRight">
+                        <div class="bg-blue-100 rounded-xl p-6">
+                            <h2 class="text-xl font-bold text-blue-600 mb-4">🧮 ریاضی</h2>
+                            <div id="mathQuestions" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+</body>
+<script src="../js/exam.js" defer></script>
+</html>
