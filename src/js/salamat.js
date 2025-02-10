@@ -366,3 +366,133 @@ class MoodTracker {
 
 // راه‌اندازی سیستم
 new MoodTracker();
+
+// راه‌اندازی سیستم 
+     // متغیرهای全局
+     let goals = [];
+     let completedGoals = 0;
+     let progressChart;
+     let selectedDay = '';
+     const daysOfWeek = ['شنبه', 'یک‌شنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه'];
+ 
+     // تنظیم نمودار
+     const ctx = document.getElementById('progress-chart').getContext('2d');
+     progressChart = new Chart(ctx, {
+       type: 'doughnut',
+       data: {
+         datasets: [{
+           data: [0, 100],
+           backgroundColor: ['#8B5CF6', '#EDE9FE'],
+           borderWidth: 0,
+         }]
+       },
+       options: {
+         responsive: true,
+         maintainAspectRatio: false,
+         cutout: '75%',
+         plugins: {
+           legend: { display: false },
+           tooltip: { enabled: false }
+         }
+       }
+     });
+ 
+     // ساخت برنامه هفتگی
+     function createWeeklySchedule() {
+       const schedule = document.getElementById('weekly-schedule');
+       daysOfWeek.forEach(day => {
+         const dayElement = document.createElement('div');
+         dayElement.className = 'bg-purple-100 rounded-lg p-2 cursor-pointer hover:bg-purple-200';
+         dayElement.innerHTML = `
+           <div class="font-bold">${day}</div>
+           <div class="text-sm mt-1 space-y-1 day-tasks" data-day="${day}"></div>
+           <button onclick="openModal('${day}')" class="text-purple-600 text-xs mt-2">+ افزودن</button>
+         `;
+         schedule.appendChild(dayElement);
+       });
+     }
+ 
+     // تابع افزودن هدف
+     function addGoal() {
+       const goalInput = document.getElementById('goal-input');
+       const goalDate = document.getElementById('goal-date');
+       const goalsList = document.getElementById('goals-list');
+ 
+       if (goalInput.value.trim() === '' || goalDate.value === '') {
+         alert('لطفاً هدف و تاریخ را وارد کنید!');
+         return;
+       }
+ 
+       const goalItem = document.createElement('div');
+       goalItem.className = 'flex items-center gap-4';
+       goalItem.innerHTML = `
+         <input type="text" value="${goalInput.value}" class="w-full p-2 border-2 border-purple-300 rounded-lg" readonly />
+         <input type="date" value="${goalDate.value}" class="p-2 border-2 border-purple-300 rounded-lg" readonly />
+         <button onclick="toggleGoal(this)" class="p-2 bg-purple-500 text-white rounded-lg">⬜</button>
+         <button onclick="deleteGoal(this)" class="p-2 bg-red-500 text-white rounded-lg">🗑️</button>
+       `;
+       goalsList.appendChild(goalItem);
+ 
+       goalInput.value = '';
+       goalDate.value = '';
+       updateProgress();
+     }
+ 
+     // توابع مدیریت اهداف
+     function toggleGoal(button) {
+   button.textContent = button.textContent === '⬜' ? '✅' : '⬜';
+   completedGoals = Array.from(document.querySelectorAll('#goals-list button'))
+     .filter(btn => btn.textContent === '✅').length;  // شمارش دکمه‌هایی که "✅" دارند
+   updateProgress();
+ }
+ 
+     function deleteGoal(button) {
+       if (button.previousElementSibling.textContent === '✅') completedGoals--;
+       button.parentElement.remove();
+       updateProgress();
+     }
+ 
+     // تابع به‌روزرسانی پیشرفت
+     function updateProgress() {
+       const totalGoals = document.querySelectorAll('#goals-list div').length;
+       const progress = totalGoals > 0 ? Math.round((completedGoals / totalGoals) * 100) : 0;
+       
+       // به‌روزرسانی نمودار
+       progressChart.data.datasets[0].data = [progress, 100 - progress];
+       progressChart.update();
+       
+       // به‌روزرسانی عدد مرکزی
+       document.getElementById('chart-center-text').textContent = `${progress}%`;
+     }
+ 
+     // توابع برنامه هفتگی
+     function openModal(day) {
+        selectedDay = day;
+        document.getElementById('task-modal').classList.remove('hidden');
+        document.getElementById('task-modal').classList.add('flex');
+      }
+      
+      function closeModal() {
+        document.getElementById('task-modal').classList.add('hidden');
+        document.getElementById('task-modal').classList.remove('flex');
+      }
+ 
+     function saveTask() {
+       const taskInput = document.getElementById('task-input');
+       const task = taskInput.value.trim();
+       if (task) {
+         const tasksContainer = document.querySelector(`.day-tasks[data-day="${selectedDay}"]`);
+         const taskElement = document.createElement('div');
+         taskElement.className = 'flex justify-between items-center bg-white p-1 rounded';
+         taskElement.innerHTML = `
+           <span>${task}</span>
+           <button onclick="this.parentElement.remove()" class="text-red-500">×</button>
+         `;
+         tasksContainer.appendChild(taskElement);
+         taskInput.value = '';
+         closeModal();
+       }
+     }
+ 
+     // اجرای اولیه
+     createWeeklySchedule();

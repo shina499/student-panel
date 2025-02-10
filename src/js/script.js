@@ -205,12 +205,12 @@ class FocusTimer {
     constructor() {
         this.timer = null;
         this.isRunning = false;
-        this.currentTime = 0;
-        this.totalTime = 25 * 60;
+        this.currentTime = parseInt(localStorage.getItem('currentTime')) || 0;
         this.settings = JSON.parse(localStorage.getItem('focusSettings')) || {
             study: 25,
             break: 5
         };
+        this.totalTime = this.settings.study * 60;
 
         this.ui = {
             time: document.getElementById('time'),
@@ -228,7 +228,8 @@ class FocusTimer {
     init() {
         this.ui.studyInput.value = this.settings.study;
         this.ui.breakInput.value = this.settings.break;
-        this.updateProgress(0);
+        this.updateProgress((this.currentTime / this.totalTime) * 100);
+        this.updateDisplay(this.totalTime - this.currentTime);
         this.setupEventListeners();
     }
 
@@ -240,7 +241,7 @@ class FocusTimer {
     }
 
     toggleTimer() {
-        if(!this.isRunning) {
+        if (!this.isRunning) {
             this.startTimer();
             this.ui.startBtn.textContent = '⏸ توقف';
             this.ui.startBtn.classList.replace('bg-blue-500', 'bg-yellow-500');
@@ -253,26 +254,29 @@ class FocusTimer {
     }
 
     startTimer() {
-        if(this.currentTime === 0) {
+        clearInterval(this.timer);
+        
+        if (this.currentTime === 0) {
             this.totalTime = this.settings.study * 60;
             this.ui.status.textContent = 'در حال تمرکز...';
         }
 
         this.timer = setInterval(() => {
             this.currentTime++;
+            localStorage.setItem('currentTime', this.currentTime);
             const remaining = this.totalTime - this.currentTime;
             this.updateDisplay(remaining);
             
-            if(remaining <= 0) {
+            if (remaining <= 0) {
                 this.handleComplete();
             }
         }, 1000);
     }
 
     updateDisplay(seconds) {
-        const mins = Math.floor(seconds / 60).toString().padStart(2, '۰');
-        const secs = (seconds % 60).toString().padStart(2, '۰');
-        this.ui.time.textContent = `${mins}:${secs}`;
+        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = (seconds % 60).toString().padStart(2, '0');
+        this.ui.time.textContent = `${mins}:${secs}`.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
         this.updateProgress((this.currentTime / this.totalTime) * 100);
     }
 
@@ -286,12 +290,13 @@ class FocusTimer {
         this.pauseTimer();
         new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3').play();
         
-        if(this.ui.status.textContent.includes('تمرکز')) {
+        if (this.ui.status.textContent.includes('تمرکز')) {
             this.totalTime = this.settings.break * 60;
             this.ui.status.textContent = 'زمان استراحت! ☕';
             this.currentTime = 0;
             this.startTimer();
         } else {
+            this.pauseTimer();
             this.resetTimer();
             alert('✅ یک سانس تمرکز با موفقیت انجام شد!');
         }
@@ -305,6 +310,7 @@ class FocusTimer {
         this.pauseTimer();
         this.currentTime = 0;
         this.isRunning = false;
+        localStorage.setItem('currentTime', this.currentTime);
         this.ui.startBtn.textContent = '▶ شروع';
         this.ui.startBtn.classList.replace('bg-yellow-500', 'bg-blue-500');
         this.ui.status.textContent = 'آماده';
@@ -317,8 +323,9 @@ class FocusTimer {
             break: parseInt(this.ui.breakInput.value) || 5
         };
         localStorage.setItem('focusSettings', JSON.stringify(this.settings));
-        this.resetTimer();
+        
+        if (!this.isRunning) {
+            this.resetTimer();
+        }
     }
 }
-// راه‌اندازی سیستم
-new FocusTimer();

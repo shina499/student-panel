@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../output.css">
     <link rel="shortcut icon" href="../favicon/favicon.png" type="image/x-icon">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -38,174 +39,225 @@
     </header>
 
     <main class="p-15 flex gap-[20px]">
-        <section class="g-system">
+        <section class="g-system ">
 
-                <div class="w-[600px] h-[400px] bg-blue-200 rounded-2xl shadow-xl p-8 flex flex-col items-center animate__animated animate__fadeIn" style="width: 600px; height: 400px;">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="text-4xl">💧</span>
-                        <h1 class="text-2xl font-bold text-blue-600">آب مصرفی امروز</h1>
-                    </div>
-            
-                    <div class="flex items-center gap-6 mb-8">
-                        <button id="decrementBtn" class="p-3 rounded-xl bg-red-100 hover:bg-red-200 text-red-500 text-2xl transition-all">
-                            🥤-
-                        </button>
-                        
-                        <div class="text-6xl font-bold text-blue-500">
-                            <span id="count">0</span>
-                            <span class="text-2xl text-blue-300">/8</span>
-                        </div>
-                        
-                        <button id="incrementBtn" class="p-3 rounded-xl bg-blue-300 hover:bg-blue-400 text-blue-500 text-2xl transition-all">
-                            🥤+
-                        </button>
-                    </div>
-            
-                    <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
-                        <div id="progress" class="bg-gradient-to-r from-blue-300 to-blue-600 h-4 rounded-full transition-all duration-500"></div>
-                    </div>
-            
-                    <div class="flex items-center justify-between w-full mt-auto">
-                        <div id="status" class="text-lg text-blue-400">😴 هنوز شروع نکردی!</div>
-                        <button id="resetBtn" class="text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-2">
-                            🔄 بازنشانی
-                        </button>
-                    </div>
+            <div class="w-[600px] h-[400px] bg-blue-200 rounded-2xl shadow-xl p-8 flex flex-col items-center animate__animated animate__fadeIn" style="width: 600px; height: 400px;">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="text-4xl">💧</span>
+                    <h1 class="text-2xl font-bold text-blue-600">آب مصرفی امروز</h1>
                 </div>
-
-                <div class="w-[600px] h-[400px] bg-white rounded-2xl shadow-xl p-6 flex flex-col bg animate__animated animate__fadeIn">
-                    <!-- هدر -->
-                    <div class="flex items-center gap-3 mb-4">
-                        <h1 class="text-2xl font-bold text-green-600 bg-white p-2"> 🏃🏻‍♀️‍➡️ مدیریت ورزش روزانه </h1>
-                    </div>
-            
-                    <!-- بخش تایمر -->
-                    <div class="flex-1 flex flex-col items-center justify-center">
-                        <div id="timerDisplay" class="text-6xl font-mono text-green-600 mb-4 bg-white p-2">۰۰:۰۰:۰۰</div>
-                        
-                        <div class="flex gap-3">
-                            <button id="controlButton" class="px-5 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
-                                ▶ شروع
-                            </button>
-                            <button id="saveButton" class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
-                                💾 ذخیره
-                            </button>
-                        </div>
-                    </div>
-            
-                    <!-- تاریخچه تمرینات -->
-                    <div class="border-t pt-4">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-green-600 font-bold bg-white p-2">📅 تاریخچه هفتگی</h3>
-                            <button id="clearHistoryButton" class="text-red-500 hover:text-red-700 text-sm bg-white p-2">
-                                پاکسازی تاریخچه
-                            </button>
-                        </div>
-                        <ul id="historyList" class="space-y-2 max-h-[100px] overflow-y-auto pr-2 text-black"></ul>
-                    </div>
-                </div>
-                
-                <div class="w-[600px] h-[400px] bg-pink-300 rounded-2xl shadow-xl p-6 flex flex-col bgn animate__animated animate__fadeIn" style="width: 600px; height: 400px;">
         
-                    <!-- هدر -->
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="text-4xl">🌙</span>
-                        <h1 class="text-2xl font-bold text-purple-600 bg-white p-2">الگوی خواب دانش‌آموزی</h1>
-                    </div>
-            
-                    <!-- بخش ورود زمان -->
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-purple-50 p-4 rounded-xl">
-                            <label class="text-purple-500 mb-2 block">🛌 زمان خواب</label>
-                            <input type="time" id="bedtime" class="w-full p-2 rounded-lg border border-purple-200">
-                        </div>
-                        
-                        <div class="bg-purple-50 p-4 rounded-xl">
-                            <label class="text-purple-500 mb-2 block">🌅 زمان بیداری</label>
-                            <input type="time" id="waketime" class="w-full p-2 rounded-lg border border-purple-200">
-                        </div>
-                    </div>
-            
-                    <!-- نمایش نتیجه -->
-                    <div class="bg-purple-100 rounded-xl p-4 mb-4 flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="text-2xl">⏳</span>
-                            <div>
-                                <p class="text-sm text-purple-500">مدت خواب</p>
-                                <p id="duration" class="text-xl font-bold text-purple-600">۰ ساعت ۰ دقیقه</p>
-                            </div>
-                        </div>
-                        <button id="calculateBtn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors">
-                            محاسبه
-                        </button>
-                    </div>
-            
-                    <!-- تاریخچه خواب -->
-                    <div class="bg-purple-50 rounded-lg p-3 flex-1 overflow-y-auto">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-purple-600 font-bold">📅 تاریخچه خواب</h3>
-                            <button id="clearHistoryBtn" class="text-purple-400 hover:text-purple-600 text-sm">
-                                پاکسازی
-                            </button>
-                        </div>
-                        <ul id="history" class="space-y-2">
-                            <!-- آیتم های تاریخچه -->
-                        </ul>
-                    </div>
-                </div>
-
-                <div id="main-panel" class="bg-yellow-200 rounded-2xl shadow-xl p-6 flex flex-col animate__animated animate__fadeIn" style="width: 600px; height: 400px;">
-                   <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-2">
-                            <span class="text-3xl">😊</span>
-                            <h1 class="text-xl font-bold text-purple-600">ردیاب احساسات روزانه</h1>
-                        </div>
-                        <span id="today-date" class="text-sm text-gray-500"></span>
-                    </div>
-            
-                   
-                    <div class="grid grid-cols-3 gap-2 mb-4">
-                        <button data-mood="happy" class="mood-btn bg-green-300 p-2 rounded-lg animation3">
-                            😊 شاد
-                        </button>
-                        <button data-mood="sad" class="mood-btn bg-blue-300 p-2 rounded-lg animation2">
-                            😢 ناراحت
-                        </button>
-                        <button data-mood="angry" class="mood-btn bg-red-300 p-2 rounded-lg animation1">
-                            😠 عصبانی
-                        </button>
-                    </div>
-            
-                   
-                    <div class="bg-gray-50 rounded-lg p-3 flex-1 mb-4">
-                        <div id="mood-chart" class="h-full space-y-1">
-                            
-                        </div>
-                    </div>
-            
+                <div class="flex items-center gap-6 mb-8">
+                    <button id="decrementBtn" class="p-3 rounded-xl bg-red-100 hover:bg-red-200 text-red-500 text-2xl transition-all">
+                        🥤-
+                    </button>
                     
-                    <div class="flex items-center justify-between">
-                        <div class="flex gap-2">
-                            <div class="bg-purple-100 px-3 py-1 rounded-full text-sm">
-                                📊 مجموع: <span id="total-entries">0</span>
-                            </div>
-                            <div class="bg-green-100 px-3 py-1 rounded-full text-sm">
-                                🏆 بهترین روز: <span id="best-day">---</span>
-                            </div>
-                        </div>
-                        <button id="reset-btn" class="text-red-400 hover:text-red-600 text-sm">
-                            🔄 بازنشانی
+                    <div class="text-6xl font-bold text-blue-500">
+                        <span id="count">0</span>
+                        <span class="text-2xl text-blue-300">/8</span>
+                    </div>
+                    
+                    <button id="incrementBtn" class="p-3 rounded-xl bg-blue-300 hover:bg-blue-400 text-blue-500 text-2xl transition-all">
+                        🥤+
+                    </button>
+                </div>
+        
+                <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+                    <div id="progress" class="bg-gradient-to-r from-blue-300 to-blue-600 h-4 rounded-full transition-all duration-500"></div>
+                </div>
+        
+                <div class="flex items-center justify-between w-full mt-auto">
+                    <div id="status" class="text-lg text-blue-400">😴 هنوز شروع نکردی!</div>
+                    <button id="resetBtn" class="text-gray-400 hover:text-blue-500 transition-colors flex items-center gap-2">
+                        🔄 بازنشانی
+                    </button>
+                </div>
+            </div>
+
+            <div class="w-[600px] h-[400px] bg-white rounded-2xl shadow-xl p-6 flex flex-col bg animate__animated animate__fadeIn">
+                <!-- هدر -->
+                <div class="flex items-center gap-3 mb-4">
+                    <h1 class="text-2xl font-bold text-green-600 bg-white p-2"> 🏃🏻‍♀️‍➡️ مدیریت ورزش روزانه </h1>
+                </div>
+        
+                <!-- بخش تایمر -->
+                <div class="flex-1 flex flex-col items-center justify-center">
+                    <div id="timerDisplay" class="text-6xl font-mono text-green-600 mb-4 bg-white p-2">۰۰:۰۰:۰۰</div>
+                    
+                    <div class="flex gap-3">
+                        <button id="controlButton" class="px-5 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
+                            ▶ شروع
+                        </button>
+                        <button id="saveButton" class="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+                            💾 ذخیره
                         </button>
                     </div>
                 </div>
+        
+                <!-- تاریخچه تمرینات -->
+                <div class="border-t pt-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-green-600 font-bold bg-white p-2">📅 تاریخچه هفتگی</h3>
+                        <button id="clearHistoryButton" class="text-red-500 hover:text-red-700 text-sm bg-white p-2">
+                            پاکسازی تاریخچه
+                        </button>
+                    </div>
+                    <ul id="historyList" class="space-y-2 max-h-[100px] overflow-y-auto pr-2 text-black"></ul>
+                </div>
+            </div>
+            
+            <div class="w-[600px] h-[400px] bg-pink-300 rounded-2xl shadow-xl p-6 flex flex-col bgn animate__animated animate__fadeIn" style="width: 600px; height: 400px;">
+    
+                <!-- هدر -->
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-4xl">🌙</span>
+                    <h1 class="text-2xl font-bold text-purple-600 bg-white p-2">الگوی خواب دانش‌آموزی</h1>
+                </div>
+        
+                <!-- بخش ورود زمان -->
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="bg-purple-50 p-4 rounded-xl">
+                        <label class="text-purple-500 mb-2 block">🛌 زمان خواب</label>
+                        <input type="time" id="bedtime" class="w-full p-2 rounded-lg border border-purple-200">
+                    </div>
+                    
+                    <div class="bg-purple-50 p-4 rounded-xl">
+                        <label class="text-purple-500 mb-2 block">🌅 زمان بیداری</label>
+                        <input type="time" id="waketime" class="w-full p-2 rounded-lg border border-purple-200">
+                    </div>
+                </div>
+        
+                <!-- نمایش نتیجه -->
+                <div class="bg-purple-100 rounded-xl p-4 mb-4 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="text-2xl">⏳</span>
+                        <div>
+                            <p class="text-sm text-purple-500">مدت خواب</p>
+                            <p id="duration" class="text-xl font-bold text-purple-600">۰ ساعت ۰ دقیقه</p>
+                        </div>
+                    </div>
+                    <button id="calculateBtn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors">
+                        محاسبه
+                    </button>
+                </div>
+        
+                <!-- تاریخچه خواب -->
+                <div class="bg-purple-50 rounded-lg p-3 flex-1 overflow-y-auto">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="text-purple-600 font-bold">📅 تاریخچه خواب</h3>
+                        <button id="clearHistoryBtn" class="text-purple-400 hover:text-purple-600 text-sm">
+                            پاکسازی
+                        </button>
+                    </div>
+                    <ul id="history" class="space-y-2">
+                        <!-- آیتم های تاریخچه -->
+                    </ul>
+                </div>
+            </div>
+
+            <div id="main-panel" class="bg-yellow-200 rounded-2xl shadow-xl p-6 flex flex-col animate__animated animate__fadeIn" style="width: 600px; height: 400px;">
+               <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-3xl">😊</span>
+                        <h1 class="text-xl font-bold text-purple-600">ردیاب احساسات روزانه</h1>
+                    </div>
+                    <span id="today-date" class="text-sm text-gray-500"></span>
+                </div>
+        
+               
+                <div class="grid grid-cols-3 gap-2 mb-4">
+                    <button data-mood="happy" class="mood-btn bg-green-300 p-2 rounded-lg animation3">
+                        😊 شاد
+                    </button>
+                    <button data-mood="sad" class="mood-btn bg-blue-300 p-2 rounded-lg animation2">
+                        😢 ناراحت
+                    </button>
+                    <button data-mood="angry" class="mood-btn bg-red-300 p-2 rounded-lg animation1">
+                        😠 عصبانی
+                    </button>
+                </div>
+        
+               
+                <div class="bg-gray-50 rounded-lg p-3 flex-1 mb-4">
+                    <div id="mood-chart" class="h-full space-y-1">
+                        
+                    </div>
+                </div>
+        
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex gap-2">
+                        <div class="bg-purple-100 px-3 py-1 rounded-full text-sm">
+                            📊 مجموع: <span id="total-entries">0</span>
+                        </div>
+                        <div class="bg-green-100 px-3 py-1 rounded-full text-sm">
+                            🏆 بهترین روز: <span id="best-day">---</span>
+                        </div>
+                    </div>
+                    <button id="reset-btn" class="text-red-400 hover:text-red-600 text-sm">
+                        🔄 بازنشانی
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-6 space-y-6">
+                    <!-- سربرگ -->
+                    <div class="text-center">
+                      <h1 class="text-3xl font-bold text-purple-800">اهداف طلایی من ✨</h1>
+                      <p class="text-gray-600 mt-2">هر روز یک قدم به رویاهام نزدیک‌تر میشم 💪</p>
+                    </div>
+                
+                    <!-- بخش اهداف -->
+                    <div class="space-y-4" id="goals-container">
+                      <div class="flex items-center gap-4">
+                        <input type="text" id="goal-input" placeholder="هدف جدید" class="w-full p-2 border-2 border-dashed border-purple-300 rounded-lg focus:outline-none focus:border-purple-500" />
+                        <input type="date" id="goal-date" class="p-2 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-500" />
+                        <button onclick="addGoal()" class="p-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600">➕</button>
+                      </div>
+                      <div id="goals-list" class="space-y-2"></div>
+                    </div>
+                
+                    <!-- نمودار پیشرفت -->
+                    <div class="text-center relative">
+                      <h2 class="text-xl font-bold text-purple-800">پیشرفت من</h2>
+                      <div class="w-64 h-64 mx-auto mt-4 relative">
+                        <canvas id="progress-chart"></canvas>
+                        <div id="chart-center-text" class="text-2xl font-bold text-purple-800">0%</div>
+                      </div>
+                    </div>
+                
+                    <!-- برنامه هفتگی -->
+                    <div class="text-center">
+                      <h2 class="text-xl font-bold text-purple-800">برنامه هفتگی</h2>
+                      <div class="grid grid-cols-3 gap-2 mt-4" id="weekly-schedule">
+                        <!-- روزها به صورت پویا ساخته می‌شوند -->
+                      </div>
+                    </div>
+                  </div>
+                
+                  <!-- مدال برای افزودن وظیفه -->
+                  <div id="task-modal" class="fixed inset-0 hidden items-center justify-center p-4 z-50">
+                    <div class="fixed inset-0 bg-black bg-opacity-80"></div>
+                    <div class="relative bg-white rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl mx-4">
+                      <h3 class="text-xl font-bold text-purple-800">افزودن وظیفه</h3>
+                      <input type="text" id="task-input" placeholder="وظیفه جدید" class="w-full p-2 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-500" />
+                      <div class="flex gap-2">
+                        <button onclick="saveTask()" class="flex-1 p-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600">ذخیره</button>
+                        <button onclick="closeModal()" class="flex-1 p-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">لغو</button>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
 
         </section>
 
-        <aside class="w-[25%] h-[120vh] shadow-lg p-4">
+        <aside class="w-[25%] h-[127vh] shadow-lg p-4">
 
             <h2 class="font-black text-2xl mb-6 text-center">پنل دسترسی سریع </h2>
 
-            <section class="flex flex-col justify-center items-center gap-[10px] bg-white ">
+            <section class="flex flex-col justify-center items-center gap-[25px] bg-white ">
 
                 <div class="w-[95%] h-[200px] bg-sky-100 flex flex-col justify-center items-center gap-[30px] rounded-lg shadow-sky-500 shadow-xl animate__animated animate__slideInRight">
                     <h3 class="text-xl">پنل دانش آموزی👩🏻‍🎓📚</h3>
@@ -213,16 +265,17 @@
                 </div>
                 <div class="w-[95%] h-[200px] bg-red-200 flex flex-col justify-center items-center gap-[30px] rounded-lg shadow-red-500 shadow-xl animate__animated animate__slideInLeft">
                     <h3 class="text-xl">صفحه اصلی🖥️🖱️</h3>
-                    <button class="px-3 py-2 bg-red-500 text-white">پیش به سوی آن !</button>
+                    <a href="../index.html"><button class="px-3 py-2 bg-red-500 text-white">پیش به سوی آن !</button></a>
                 </div>
                 <div class="w-[95%] h-[200px] bg-lime-200 flex flex-col justify-center items-center gap-[30px] rounded-lg shadow-lime-500 shadow-xl animate__animated animate__slideInRight">
                     <h3 class="text-xl">پنل امتحانات📔🖋️</h3>
-                    <button class="px-3 py-2 bg-lime-500 text-white">بریم ببینیم !</button>
+                    <a href="./examPanel.html"><button class="px-3 py-2 bg-lime-500 text-white">بریم ببینیم !</button></a>
                 </div>
                 <div class="w-[95%] h-[200px] bg-yellow-200 flex flex-col justify-center items-center gap-[30px] shadow-yellow-500 shadow-xl animate__animated animate__slideInLeft">
                     <h3 class="text-xl">دفترچه یادداشت🗂️📝</h3>
                     <button class="px-4 py-3 bg-yellow-500 text-white hover:bg-yellow-600 rounded"><a href="./note.html">ورود به دفترچه یادداشت</a></button>
                 </div>
+                
 
         
             </section>

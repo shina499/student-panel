@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../output.css">
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -20,14 +21,13 @@
 
             <div class="flex flex-col gap-1">
                 <p class="text-lg font-bold">خوش آمدید</p>
-                <p class="text-sm font-light">امروز <span>یکشنبه ۱۲ اسفند</span></p>
             </div>
             
             <div class="flex gap-[10px] justify-center items-center">
                 <!-- website icon -->
                 <img class="w-[60px] h-[60px] rounded" src="../favicon/favicon.png" alt="website-icon">
                 <!-- website title -->
-                <h1 class="text-2xl font-black">پنل دانش آموزی ایستگاه دانش</h1>
+                <h1 class="text-2xl font-black">پنل امتحانات ایستگاه دانش</h1>
             </div>
 
             <div>
@@ -40,7 +40,7 @@
     <main class="p-5 flex gap-[20px] mb-6 mt-6">
 
 
-        <aside class="w-[25%] h-[132vh] shadow-lg p-4 rounded-lg">
+        <aside class="w-[25%] h-[162vh] shadow-lg p-4 rounded-lg">
 
             <h2 class="font-black text-3xl mb-6 text-center">پنل دسترسی سریع </h2>
 
@@ -52,22 +52,23 @@
                 </div>
                 <div class="w-[95%] h-[200px] bg-red-200 flex flex-col justify-center items-center gap-[30px] rounded-lg shadow-red-500 shadow-xl animate__animated animate__slideInLeft">
                     <h3 class="text-2xl">صفحه اصلی🖥️🖱️</h3>
-                    <button class="px-4 py-3 bg-red-500 text-white hover:bg-red-600 rounded">پیش به سوی آن !</button>
+                    <a href="../index.html"><button class="px-4 py-3 bg-red-500 text-white hover:bg-red-600 rounded">پیش به سوی آن !</button></a>
                 </div>
                 <div class="w-[95%] h-[200px] bg-lime-200 flex flex-col justify-center items-center gap-[30px] rounded-lg shadow-lime-500 shadow-xl animate__animated animate__slideInRight">
-                    <h3 class="text-2xl">پنل امتحانات📔🖋️</h3>
-                    <button class="px-4 py-3 bg-lime-500 text-white hover:bg-lime-600 rounded"><a href="./examPanel.html">بریم ببینیم !</a></button>
+                    <h3 class="text-2xl">پنل دانش‌آموزی</h3>
+                    <button class="px-4 py-3 bg-lime-500 text-white hover:bg-lime-600 rounded"><a href="./dashboard.html">بریم ببینیم !</a></button>
                 </div>
                 <div class="w-[95%] h-[200px] bg-yellow-200 flex flex-col justify-center items-center gap-[30px] shadow-yellow-500 shadow-xl animate__animated animate__slideInLeft">
                     <h3 class="text-2xl">دفترچه یادداشت🗂️📝</h3>
                     <button class="px-4 py-3 bg-yellow-500 text-white hover:bg-yellow-600 rounded"><a href="./note.html">ورود به دفترچه یادداشت</a></button>
                 </div>
+                
         
             </section>
             
         </aside>
 
-        <div class="">
+        <div>
 
             <section class="flex justify-center gap-6 items-center h-[550px]">
                 
@@ -114,12 +115,12 @@
                     </div>
                 </div>
                 
-                <div class="card bg-white p-6 rounded-lg shadow-lg w-[600px] h-[500px]">
+                <div class="card bg-white p-6 rounded-lg shadow-lg w-[600px] h-[500px] overflow-y-auto">
                     <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">پنل نمرات دانش‌آموزی</h1>
                     
                     <!-- فیلد نام دانش‌آموز -->
                     <div class="mb-4">
-                      <label for="studentName" class="block text-gray-700">نام دانش‌آموز:</label>
+                      <label for="studentName" class="block text-gray-700">نام درس:</label>
                       <input type="text" id="studentName" class="w-full p-2 border border-gray-300 rounded mt-1">
                     </div>
                 
@@ -187,6 +188,40 @@
 
 
     </main>
+
+    <footer class="w-full h-[30vh] bg-gray-200 flex justify-between items-center p-15">
+
+        <div class="flex flex-col justify-center">
+            <h3 class="text-xl text-gray-800 font-black">با ما در ارتباط باشید</h3>
+            <ul class="flex flex-col justify-center">
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://web.shad.ir/">شاد</a></li>
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://web.rubika.ir/">روبیکا</a></li>
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://web.splus.ir/">سروش پلاس</a></li>
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://bale.ai/">بله</a></li>
+            </ul>
+        </div>
+
+        <div class="flex flex-col justify-center">
+            <h3 class="text-xl text-gray-800 font-black">در پروژه ما همکاری کنید</h3>
+            <ul class="flex flex-col justify-center">
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://github.com/shina499">گیت هاب</a></li>
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://www.instagram.com/">اینستاگرام</a></li>
+                <li class="text-gray-400 text-lg hover:text-gray-500"><a href="https://www.linkedin.com/in/n-hosseiny-hosseiny-781256349/">لینکدین</a></li>
+            </ul>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <figure>
+                <a href="#">
+                    <img src="../favicon/favicon.png" class="w-[120px] h-[120px] rounded" alt="icon">
+                </a>
+            </figure>
+            
+            <span class="text-center text-gray-700 text-lg">ایستگاه دانش</span>
+        </div>
+
+        <p class="text-xl">ساخته شده با ❤️ در گروه برنامه سازان آینده</p>
+    </footer>
 </body>
 <script src="../js/exam.js" defer></script>
 </html>
