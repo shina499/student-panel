@@ -206,11 +206,12 @@ class FocusTimer {
         this.timer = null;
         this.isRunning = false;
         this.currentTime = parseInt(localStorage.getItem('currentTime')) || 0;
+        this.isBreakTime = localStorage.getItem('isBreakTime') === 'true' || false;
         this.settings = JSON.parse(localStorage.getItem('focusSettings')) || {
             study: 25,
             break: 5
         };
-        this.totalTime = this.settings.study * 60;
+        this.totalTime = (this.isBreakTime ? this.settings.break : this.settings.study) * 60;
 
         this.ui = {
             time: document.getElementById('time'),
@@ -255,10 +256,10 @@ class FocusTimer {
 
     startTimer() {
         clearInterval(this.timer);
-        
+
         if (this.currentTime === 0) {
-            this.totalTime = this.settings.study * 60;
-            this.ui.status.textContent = 'در حال تمرکز...';
+            this.totalTime = (this.isBreakTime ? this.settings.break : this.settings.study) * 60;
+            this.ui.status.textContent = this.isBreakTime ? 'زمان استراحت! ☕' : 'در حال تمرکز...';
         }
 
         this.timer = setInterval(() => {
@@ -266,7 +267,7 @@ class FocusTimer {
             localStorage.setItem('currentTime', this.currentTime);
             const remaining = this.totalTime - this.currentTime;
             this.updateDisplay(remaining);
-            
+
             if (remaining <= 0) {
                 this.handleComplete();
             }
@@ -281,6 +282,7 @@ class FocusTimer {
     }
 
     updateProgress(percent) {
+        if (isNaN(percent)) percent = 0;
         const circumference = 565.48;
         const offset = circumference - (percent / 100 * circumference);
         this.ui.progressCircle.style.strokeDashoffset = offset;
@@ -289,17 +291,15 @@ class FocusTimer {
     handleComplete() {
         this.pauseTimer();
         new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3').play();
-        
-        if (this.ui.status.textContent.includes('تمرکز')) {
-            this.totalTime = this.settings.break * 60;
-            this.ui.status.textContent = 'زمان استراحت! ☕';
-            this.currentTime = 0;
-            this.startTimer();
-        } else {
-            this.pauseTimer();
-            this.resetTimer();
-            alert('✅ یک سانس تمرکز با موفقیت انجام شد!');
-        }
+
+        this.isBreakTime = !this.isBreakTime; // تغییر وضعیت بین مطالعه و استراحت
+        localStorage.setItem('isBreakTime', this.isBreakTime);
+
+        this.currentTime = 0;
+        this.totalTime = (this.isBreakTime ? this.settings.break : this.settings.study) * 60;
+        this.ui.status.textContent = this.isBreakTime ? 'زمان استراحت! ☕' : 'در حال تمرکز...';
+
+        this.startTimer();
     }
 
     pauseTimer() {
@@ -310,11 +310,14 @@ class FocusTimer {
         this.pauseTimer();
         this.currentTime = 0;
         this.isRunning = false;
+        this.isBreakTime = false;
         localStorage.setItem('currentTime', this.currentTime);
+        localStorage.setItem('isBreakTime', this.isBreakTime);
         this.ui.startBtn.textContent = '▶ شروع';
         this.ui.startBtn.classList.replace('bg-yellow-500', 'bg-blue-500');
         this.ui.status.textContent = 'آماده';
-        this.updateDisplay(this.settings.study * 60);
+        this.totalTime = this.settings.study * 60;
+        this.updateDisplay(this.totalTime);
     }
 
     updateSettings() {
@@ -323,9 +326,14 @@ class FocusTimer {
             break: parseInt(this.ui.breakInput.value) || 5
         };
         localStorage.setItem('focusSettings', JSON.stringify(this.settings));
-        
+
+        this.totalTime = this.isBreakTime ? this.settings.break * 60 : this.settings.study * 60;
+
         if (!this.isRunning) {
             this.resetTimer();
         }
     }
 }
+document.addEventListener('DOMContentLoaded', () => {
+    new FocusTimer();
+});
