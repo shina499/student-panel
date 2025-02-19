@@ -620,9 +620,6 @@
   .hidden {
     display: none;
   }
-  .inline {
-    display: inline;
-  }
   .inline-block {
     display: inline-block;
   }
@@ -662,6 +659,12 @@
   .h-\[30vh\] {
     height: 30vh;
   }
+  .h-\[550px\] {
+    height: 550px;
+  }
+  .h-\[600px\] {
+    height: 600px;
+  }
   .h-\[60px\] {
     height: 60px;
   }
@@ -674,11 +677,20 @@
   .h-\[120px\] {
     height: 120px;
   }
-  .h-\[127vh\] {
-    height: 127vh;
+  .h-\[139vh\] {
+    height: 139vh;
   }
-  .h-\[132vh\] {
-    height: 132vh;
+  .h-\[141vh\] {
+    height: 141vh;
+  }
+  .h-\[142vh\] {
+    height: 142vh;
+  }
+  .h-\[144vh\] {
+    height: 144vh;
+  }
+  .h-\[146vh\] {
+    height: 146vh;
   }
   .h-\[200px\] {
     height: 200px;
@@ -689,17 +701,8 @@
   .h-\[400px\] {
     height: 400px;
   }
-  .h-\[450px\] {
-    height: 450px;
-  }
   .h-\[500px\] {
     height: 500px;
-  }
-  .h-\[550px\] {
-    height: 550px;
-  }
-  .h-\[600px\] {
-    height: 600px;
   }
   .h-full {
     height: 100%;
@@ -740,35 +743,14 @@
   .w-64 {
     width: calc(var(--spacing) * 64);
   }
-  .w-\[\%\] {
-    width: %;
-  }
-  .w-\[0\%\] {
-    width: 0%;
-  }
-  .w-\[00px\] {
-    width: 00px;
-  }
-  .w-\[0px\] {
-    width: 0px;
-  }
-  .w-\[5\%\] {
-    width: 5%;
-  }
   .w-\[24\%\] {
     width: 24%;
   }
   .w-\[25\%\] {
     width: 25%;
   }
-  .w-\[30\%\] {
-    width: 30%;
-  }
   .w-\[35\%\] {
     width: 35%;
-  }
-  .w-\[40\%\] {
-    width: 40%;
   }
   .w-\[45\%\] {
     width: 45%;
@@ -776,56 +758,41 @@
   .w-\[48\%\] {
     width: 48%;
   }
+  .w-\[52\%\] {
+    width: 52%;
+  }
   .w-\[60\%\] {
     width: 60%;
   }
   .w-\[60px\] {
     width: 60px;
   }
-  .w-\[75\%\] {
-    width: 75%;
-  }
-  .w-\[90\%\] {
-    width: 90%;
-  }
-  .w-\[500px\] {
-    width: 500px;
-  }
-  .w-\[52\%\] {
-    width: 52%;
-  }
   .w-\[70\%\] {
     width: 70%;
+  }
+  .w-\[75\%\] {
+    width: 75%;
   }
   .w-\[80\%\] {
     width: 80%;
   }
-  .w-\[90px\] {
-    width: 90px;
+  .w-\[90\%\] {
+    width: 90%;
   }
   .w-\[95\%\] {
     width: 95%;
   }
-  .w-\[450px\] {
-    width: 450px;
+  .w-\[120px\] {
+    width: 120px;
+  }
+  .w-\[500px\] {
+    width: 500px;
   }
   .w-\[550px\] {
     width: 550px;
   }
-  .w-\[1000px\] {
-    width: 1000px;
-  }
-  .w-\[120px\] {
-    width: 120px;
-  }
-  .w-\[600px\] {
-    width: 600px;
-  }
   .w-\[900px\] {
     width: 900px;
-  }
-  .w-\[950px\] {
-    width: 950px;
   }
   .w-full {
     width: 100%;
