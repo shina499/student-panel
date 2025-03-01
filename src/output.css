@@ -677,20 +677,20 @@
   .h-\[120px\] {
     height: 120px;
   }
-  .h-\[139vh\] {
-    height: 139vh;
-  }
   .h-\[141vh\] {
     height: 141vh;
   }
-  .h-\[142vh\] {
-    height: 142vh;
-  }
-  .h-\[144vh\] {
-    height: 144vh;
-  }
   .h-\[146vh\] {
     height: 146vh;
+  }
+  .h-\[176vh\] {
+    height: 176vh;
+  }
+  .h-\[177vh\] {
+    height: 177vh;
+  }
+  .h-\[184vh\] {
+    height: 184vh;
   }
   .h-\[200px\] {
     height: 200px;
@@ -758,6 +758,18 @@
   .w-\[48\%\] {
     width: 48%;
   }
+  .w-\[90\%\] {
+    width: 90%;
+  }
+  .w-\[95\%\] {
+    width: 95%;
+  }
+  .w-\[120px\] {
+    width: 120px;
+  }
+  .w-\[500px\] {
+    width: 500px;
+  }
   .w-\[52\%\] {
     width: 52%;
   }
@@ -775,18 +787,6 @@
   }
   .w-\[80\%\] {
     width: 80%;
-  }
-  .w-\[90\%\] {
-    width: 90%;
-  }
-  .w-\[95\%\] {
-    width: 95%;
-  }
-  .w-\[120px\] {
-    width: 120px;
-  }
-  .w-\[500px\] {
-    width: 500px;
   }
   .w-\[550px\] {
     width: 550px;
@@ -1056,6 +1056,9 @@
   }
   .bg-purple-100 {
     background-color: var(--color-purple-100);
+  }
+  .bg-purple-200 {
+    background-color: var(--color-purple-200);
   }
   .bg-purple-500 {
     background-color: var(--color-purple-500);
@@ -1429,6 +1432,9 @@
   }
   .shadow-lime-500 {
     --tw-shadow-color: var(--color-lime-500);
+  }
+  .shadow-purple-500 {
+    --tw-shadow-color: var(--color-purple-500);
   }
   .shadow-red-500 {
     --tw-shadow-color: var(--color-red-500);
