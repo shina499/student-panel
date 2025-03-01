@@ -413,57 +413,89 @@ new MoodTracker();
      }
  
      // تابع افزودن هدف
+     document.addEventListener('DOMContentLoaded', loadGoals);
+
      function addGoal() {
-       const goalInput = document.getElementById('goal-input');
-       const goalDate = document.getElementById('goal-date');
-       const goalsList = document.getElementById('goals-list');
- 
-       if (goalInput.value.trim() === '' || goalDate.value === '') {
-         alert('لطفاً هدف و تاریخ را وارد کنید!');
-         return;
-       }
- 
-       const goalItem = document.createElement('div');
-       goalItem.className = 'flex items-center gap-4';
-       goalItem.innerHTML = `
-         <input type="text" value="${goalInput.value}" class="w-full p-2 border-2 border-purple-300 rounded-lg" readonly />
-         <input type="date" value="${goalDate.value}" class="p-2 border-2 border-purple-300 rounded-lg" readonly />
-         <button onclick="toggleGoal(this)" class="p-2 bg-purple-500 text-white rounded-lg">⬜</button>
-         <button onclick="deleteGoal(this)" class="p-2 bg-red-500 text-white rounded-lg">🗑️</button>
-       `;
-       goalsList.appendChild(goalItem);
- 
-       goalInput.value = '';
-       goalDate.value = '';
-       updateProgress();
+         const goalInput = document.getElementById('goal-input');
+         const goalDate = document.getElementById('goal-date');
+         const goalsList = document.getElementById('goals-list');
+     
+         if (goalInput.value.trim() === '' || goalDate.value === '') {
+             alert('لطفاً هدف و تاریخ را وارد کنید!');
+             return;
+         }
+     
+         const goal = {
+             text: goalInput.value,
+             date: goalDate.value,
+             completed: false
+         };
+     
+         saveGoal(goal);
+         renderGoal(goal);
+         goalInput.value = '';
+         goalDate.value = '';
+         updateProgress();
      }
- 
-     // توابع مدیریت اهداف
+     
+     function saveGoal(goal) {
+         let goals = JSON.parse(localStorage.getItem('goals')) || [];
+         goals.push(goal);
+         localStorage.setItem('goals', JSON.stringify(goals));
+     }
+     
+     function loadGoals() {
+         let goals = JSON.parse(localStorage.getItem('goals')) || [];
+         goals.forEach(goal => renderGoal(goal));
+         updateProgress();
+     }
+     
+     function renderGoal(goal) {
+         const goalsList = document.getElementById('goals-list');
+         const goalItem = document.createElement('div');
+         goalItem.className = 'flex items-center gap-4';
+         goalItem.innerHTML = `
+             <input type="text" value="${goal.text}" class="w-full p-2 border-2 border-purple-300 rounded-lg" readonly />
+             <input type="date" value="${goal.date}" class="p-2 border-2 border-purple-300 rounded-lg" readonly />
+             <button onclick="toggleGoal(this)" class="p-2 bg-purple-500 text-white rounded-lg">${goal.completed ? '✅' : '⬜'}</button>
+             <button onclick="deleteGoal(this)" class="p-2 bg-red-500 text-white rounded-lg">🗑️</button>
+         `;
+         goalsList.appendChild(goalItem);
+     }
+     
      function toggleGoal(button) {
-   button.textContent = button.textContent === '⬜' ? '✅' : '⬜';
-   completedGoals = Array.from(document.querySelectorAll('#goals-list button'))
-     .filter(btn => btn.textContent === '✅').length;  // شمارش دکمه‌هایی که "✅" دارند
-   updateProgress();
- }
- 
+         let goals = JSON.parse(localStorage.getItem('goals')) || [];
+         const goalIndex = Array.from(button.parentElement.parentElement.children).indexOf(button.parentElement);
+         goals[goalIndex].completed = !goals[goalIndex].completed;
+         localStorage.setItem('goals', JSON.stringify(goals));
+     
+         button.textContent = goals[goalIndex].completed ? '✅' : '⬜';
+         updateProgress();
+     }
+     
      function deleteGoal(button) {
-       if (button.previousElementSibling.textContent === '✅') completedGoals--;
-       button.parentElement.remove();
-       updateProgress();
+         let goals = JSON.parse(localStorage.getItem('goals')) || [];
+         const goalIndex = Array.from(button.parentElement.parentElement.children).indexOf(button.parentElement);
+         goals.splice(goalIndex, 1);
+         localStorage.setItem('goals', JSON.stringify(goals));
+         button.parentElement.remove();
+         updateProgress();
      }
- 
-     // تابع به‌روزرسانی پیشرفت
+     
      function updateProgress() {
-       const totalGoals = document.querySelectorAll('#goals-list div').length;
-       const progress = totalGoals > 0 ? Math.round((completedGoals / totalGoals) * 100) : 0;
-       
-       // به‌روزرسانی نمودار
-       progressChart.data.datasets[0].data = [progress, 100 - progress];
-       progressChart.update();
-       
-       // به‌روزرسانی عدد مرکزی
-       document.getElementById('chart-center-text').textContent = `${progress}%`;
+         let goals = JSON.parse(localStorage.getItem('goals')) || [];
+         const totalGoals = goals.length;
+         const completedGoals = goals.filter(goal => goal.completed).length;
+         const progress = totalGoals > 0 ? Math.round((completedGoals / totalGoals) * 100) : 0;
+         
+         document.getElementById('chart-center-text').textContent = `${progress}%`;
+         
+         if (typeof progressChart !== 'undefined') {
+             progressChart.data.datasets[0].data = [progress, 100 - progress];
+             progressChart.update();
+         }
      }
+     
  
      // توابع برنامه هفتگی
      function openModal(day) {
